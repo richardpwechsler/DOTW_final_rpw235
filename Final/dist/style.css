@@ -1,0 +1,172 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+html {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+q, blockquote {
+  quotes: none;
+}
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+a img {
+  border: none;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+  display: block;
+}
+
+canvas {
+  position: absolute;
+}
+
+nav.link-list {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 20px;
+  display: inline-block;
+}
+nav.link-list li {
+  overflow: hidden;
+  float: left;
+}
+nav.link-list a {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  margin: 5px;
+  display: inline-block;
+  border-radius: 50%;
+  background-color: #fff;
+  transition: background-color 0.5s ease;
+}
+nav.link-list a.is-active {
+  background-color: #C8A36C;
+}
+
+nav.btns {
+  position: absolute;
+  top: 45%;
+  width: 100%;
+}
+nav.btns button {
+  position: absolute;
+  display: inline-block;
+  width: 44px;
+  height: 44px;
+  text-align: center;
+  line-height: 44px;
+  font-weight: bold;
+  font-size: 10px;
+  font-family: serif;
+  border-radius: 50%;
+  background-color: #fff;
+  cursor: pointer;
+  border: 0;
+  transition: all 0.5s ease;
+}
+nav.btns button:focus {
+  outline: 0;
+}
+nav.btns button:before {
+  content: '';
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  top: 0;
+  left: 0;
+  border: 2px solid #C8A36C;
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+nav.btns button span {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+nav.btns button:hover {
+  background-color: #C8A36C;
+  width: 64px;
+  height: 64px;
+  transform: translateY(-10px);
+}
+nav.btns button:hover:before {
+  opacity: 1;
+  width: 104px;
+  height: 104px;
+  top: -22px;
+  left: -22px;
+}
+nav.btns button:hover span {
+  opacity: 1;
+}
+nav.btns button.show-prev {
+  left: 15%;
+}
+nav.btns button.show-next {
+  right: 15%;
+}
+
+footer {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-family: sans-serif;
+  color: #ccc;
+  font-size: 12px;
+  line-height: 12px;
+}
+footer a {
+  color: inherit;
+}
+
+.loading-txt {
+  text-align: center;
+  width: 100%;
+  font-size: 24px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.loading-txt.is-hidden {
+  display: none;
+}
