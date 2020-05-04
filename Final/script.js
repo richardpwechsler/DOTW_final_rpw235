@@ -98,7 +98,7 @@ console.log("script.js loaded");
 			if (i === 0) {
 // 				if (i !== partList.length-1) {
 				ctx.lineWidth = 1;
-				ctx.strokeStyle = '#c75660';
+				ctx.strokeStyle = '#ffffff';
 				ctx.stroke();
 			}
 
@@ -127,7 +127,26 @@ console.log("script.js loaded");
 		});
 	}
 
+	function audioInit() {
+		const muteButton = document.querySelector("#unmute");
+		// const icon = document.querySelector("#unmute > i");
+		const audio = document.querySelector("audio");
 
+		muteButton.addEventListener("click", () => {
+		  	if (audio.paused) {
+		    	audio.volume = 0.2;
+		    	audio.play();
+		    	// icon.classList.remove('fa-volume-up');
+		    	// icon.classList.add('fa-volume-mute');
+		  	} 
+		  	else {
+		    	audio.pause();
+		    	// icon.classList.remove('fa-volume-mute');
+		    	// icon.classList.add('fa-volume-up');
+		  	}
+		  	muteButton.classList.add("fade");
+		});
+	}
 
 	function onBtnsClick(e) {
 
@@ -153,9 +172,6 @@ console.log("script.js loaded");
 
 			clearInterval(slideshowInterval);
 		}
-
-
-
 	}
 
 	function onListClick(e) {
@@ -188,10 +204,7 @@ console.log("script.js loaded");
 		}
 		currentLink = linkList[currentImage];
 		currentLink.classList.add(IS_ACTIVE);
-
 	}
-
-
 
 	function calculateScreen() {
 		VW = window.innerWidth;
@@ -268,6 +281,7 @@ console.log("script.js loaded");
 		resizeBg();
 		selectLink();
 		changeImage();
+		audioInit();
 		// slideshowInterval = setInterval(slideshowChange,3000);
 	}
 

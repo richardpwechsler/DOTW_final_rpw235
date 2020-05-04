@@ -76,13 +76,14 @@ nav.link-list a {
   margin: 5px;
   display: inline-block;
   border-radius: 50%;
-  background-color: #c75660;
+  background-color: #7D7D7D;
   transition: background-color 0.5s ease;
 }
 nav.link-list a.is-active {
   /*background-color: #C8A36C;*/
   /*background-color: #e1329d;*/
-  background-color: #2c3040;
+  /*background-color: #2c3040;*/
+  background-color: #FFFFFF;
 }
 
 nav.btns {
@@ -101,7 +102,8 @@ nav.btns button {
   font-size: 10px;
   font-family: serif;
   border-radius: 50%;
-  background-color: #2c3040;
+  /*background-color: #2c3040;*/
+  background-color: #ffffff;
   cursor: pointer;
   border: 0;
   transition: all 0.5s ease;
@@ -116,7 +118,7 @@ nav.btns button:before {
   height: 44px;
   top: 0;
   left: 0;
-  border: 2px solid #2c3040;
+  border: 2px solid #FFFFFF;
   border-radius: 50%;
   opacity: 0;
   transition: all 0.5s ease;
@@ -126,7 +128,8 @@ nav.btns button span {
   transition: opacity 0.2s ease;
 }
 nav.btns button:hover {
-  background-color: #c75660;
+  /*background-color: #c75660;*/
+  background-color: #7d7d7d;
   width: 64px;
   height: 64px;
   transform: translateY(-10px);
@@ -171,4 +174,43 @@ footer a {
 }
 .loading-txt.is-hidden {
   display: none;
+}
+
+/*Audio styles*/
+audio {
+  display: none;
+}
+#unmute {
+  font-size: 16px;
+  color: #eee;
+  position: absolute;
+  bottom: 1%;
+  left: 5%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 50px;
+  padding: 15px;
+  border: none;
+  border-radius: 2px;
+  outline: none;
+  /*background: rgba(115, 67, 167, 0.8);*/
+  background-image: url("media/vol2.png");
+  /*background-image: url("https://cdn2.iconfinder.com/data/icons/squircle-ui/32/Sound-512.png");*/
+  /*background: rgba(115, 67, 167, 0.8);*/
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+  opacity: 0.8;
+  cursor: pointer;
+  transition: all 0.4s ease-out;
+  z-index: 999;
+}
+
+#unmute.fade:hover {
+  opacity: 0.8;
+}
+
+.fade {
+  opacity: 0.2;
+/*  top: 0;
+  left: 0;
+  transform: translate(0, 0);*/
 }
