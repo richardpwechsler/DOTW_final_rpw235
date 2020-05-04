@@ -127,25 +127,35 @@ console.log("script.js loaded");
 		});
 	}
 
-	function audioInit() {
-		const muteButton = document.querySelector("#unmute");
-		// const icon = document.querySelector("#unmute > i");
-		const audio = document.querySelector("audio");
-
-		muteButton.addEventListener("click", () => {
-		  	if (audio.paused) {
-		    	audio.volume = 0.2;
-		    	audio.play();
-		    	// icon.classList.remove('fa-volume-up');
-		    	// icon.classList.add('fa-volume-mute');
-		  	} 
-		  	else {
-		    	audio.pause();
-		    	// icon.classList.remove('fa-volume-mute');
-		    	// icon.classList.add('fa-volume-up');
+	function audioSlider(){
+		$("#volume").slider({
+		  	min: 0,
+		  	max: 100,
+		  	value: 0,
+				range: "min",
+		  	slide: function(event, ui) {
+		    	setVolume(ui.value / 100);
 		  	}
-		  	muteButton.classList.add("fade");
 		});
+			
+		var myMedia = document.createElement('audio');
+		$('#player').append(myMedia);
+		myMedia.id = "myMedia";
+
+		playAudio('media/linear.mp3', 0);
+		
+		function playAudio(fileName, myVolume) {
+				myMedia.src = fileName;
+				myMedia.setAttribute('loop', 'loop');
+	    	setVolume(myVolume);
+	    	myMedia.play();
+		}
+		
+		function setVolume(myVolume) {
+	    var myMedia = document.getElementById('myMedia');
+	    myMedia.volume = myVolume;
+	}
+
 	}
 
 	function onBtnsClick(e) {
@@ -281,7 +291,8 @@ console.log("script.js loaded");
 		resizeBg();
 		selectLink();
 		changeImage();
-		audioInit();
+		// audioInit();
+		audioSlider()
 		// slideshowInterval = setInterval(slideshowChange,3000);
 	}
 
@@ -328,3 +339,11 @@ console.log("script.js loaded");
 		};
 	}
 })();
+
+// Click anywhere within DOM triggers "thock" sound
+$(document).on("click", function () {
+    console.log('clicked');
+    var audio = new Audio("media/thock2.mp3");
+    audio.volume = 0.2;
+    audio.play();
+});

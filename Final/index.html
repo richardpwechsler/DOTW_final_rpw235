@@ -8,9 +8,12 @@
 
 </head>
 <body>
-    <button id="unmute">
-        <i class="fas fa-volume-up"></i>
-    </button>
+
+    <div id="player">
+        <i class="fa fa-volume-down"></i>
+        <div id="volume"></div>
+        <i class="fa fa-volume-up"></i>
+    </div>
 
     <canvas id="canvas0" width="800" height="480"></canvas>
     <canvas id="canvas1" width="800" height="480"></canvas>
@@ -19,7 +22,9 @@
 
     <nav class="link-list">
         <ul>
-            <li><a href="" data-order="0" data-imagesrc="media/menu.jpg"></a></li>
+            <li><a href="" data-order="0" data-imagesrc="media/menu_bw.jpg"></a></li>
+<!--             <li><a href="" data-order="0" data-imagesrc="media/menu_c.jpg"></a></li>
+            <li><a href="" data-order="0" data-imagesrc="media/menu.jpg"></a></li> -->
             <li><a href="" data-order="1" data-imagesrc="media/linear.jpg"></a></li>
             <li><a href="" data-order="2" data-imagesrc="media/tactile.jpg"></a></li>
             <li><a href="" data-order="3" data-imagesrc="media/clicky.jpg"></a></li>
@@ -32,13 +37,15 @@
     <audio src="media/clicky.mp3" loop></audio>
 
     <nav class="btns">
-        <button class="show-prev"><span>-</span></button>
-        <button class="show-next"><span>+</span></button>
+        <button class="show-prev"><span><</span></button>
+        <button class="show-next"><span>></span></button>
     </nav>
 
     <p class="loading-txt">Loading images...</p>
 <!-- partial -->
   <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.16.1/TweenMax.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
   <script  src="./script.js"></script>
 
 </body>
