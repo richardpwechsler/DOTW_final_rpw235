@@ -18,8 +18,8 @@ console.log("script.js loaded");
 		loadTxt = document.querySelector('.loading-txt');
 	var slide = 0;
 
-	var playlist = new Array('media/background.mp3', 'media/linear.mp3', 'media/tactile.mps', 'media/clicky.mp3');
-
+	var playlist = new Array('media/background.mp3', 'media/linear.mp3', 'media/tactile.mp3', 'media/clicky.mp3');
+	
 	// CONST
 	var VW, VH, AR;
 	var IS_ACTIVE = 'is-active';
@@ -62,7 +62,7 @@ console.log("script.js loaded");
 	}];
 
 	function drawImages() {
-
+		
 		// console.log("drawImages()");
 
 		var imgPrev = imagesList[prevImage];
@@ -119,6 +119,7 @@ console.log("script.js loaded");
 			// ctx.restore();
 
 		}
+		// audioSlider()
 	}
 
 	function changeImage() {
@@ -143,6 +144,7 @@ console.log("script.js loaded");
 	}
 
 	function audioSlider(){
+		// myMedia.pause();
 		$("#volume").slider({
 		  	min: 0,
 		  	max: 100,
@@ -154,16 +156,19 @@ console.log("script.js loaded");
 		});
 			
 		var myMedia = document.createElement('audio');
+		myMedia.pause();
 		$('#player').append(myMedia);
 		myMedia.id = "myMedia";
 
-		
-		// playAudio(playlist[currentImage], 0);
-		playAudio('media/linear.mp3', 0);
+
+		playAudio(playlist[currentImage], 0);
+		// playAudio('media/linear.mp3', 0);
 		
 		function playAudio(fileName, myVolume) {
+			myMedia.pause();
 			console.log("playAudio: "+playlist[currentImage]);
-			myMedia.src = fileName;
+			// myMedia.src = fileName;
+			myMedia.src = playlist[currentImage];
 				myMedia.setAttribute('loop', 'loop');
 				myMedia.setAttribute('muted','muted');
 	    	setVolume(myVolume);
@@ -205,10 +210,11 @@ console.log("script.js loaded");
 
 			clearInterval(slideshowInterval);
 		}
+		audioSlider()
 	}
 
 	function onListClick(e) {
-
+		
 		e.preventDefault();
 
 		// Do not interupt previous animation
@@ -228,6 +234,7 @@ console.log("script.js loaded");
 
 			clearInterval(slideshowInterval);
 		}
+		audioSlider()
 	}
 
 	function selectLink() {
@@ -309,7 +316,8 @@ console.log("script.js loaded");
 		resizeBg();
 		selectLink();
 		// changeImage();
-		drawImages();		
+		drawImages();
+		audioSlider();		
 	}
 
 
@@ -327,8 +335,9 @@ console.log("script.js loaded");
 			// console.log("img: "+img.src);
 
 		}
-		audioSlider();
+		
 		preloadImages();
+
 	}
 
 	preInit();
@@ -359,8 +368,8 @@ console.log("script.js loaded");
 })();
 
 // Click anywhere within DOM triggers "thock" sound
-$(document).on("click", function () {
-    console.log('clicked');
+$(document).on("mouseup", function () {
+    
     var audio = new Audio("media/thock2.mp3");
     audio.volume = 0.2;
     audio.play();
