@@ -15,7 +15,10 @@ console.log("script.js loaded");
 		linklist = document.querySelector('.link-list'),
 		btns = document.querySelector('.btns'),
 		nextBtn = btns.querySelector('.show-next'),
-		loadTxt = document.querySelector('.loading-txt');;
+		loadTxt = document.querySelector('.loading-txt');
+	var slide = 0;
+
+	var playlist = new Array('media/background.mp3', 'media/linear.mp3', 'media/tactile.mps', 'media/clicky.mp3');
 
 	// CONST
 	var VW, VH, AR;
@@ -32,9 +35,13 @@ console.log("script.js loaded");
 		};
 	var slideshowInterval;
 
+	console.log(currentImage);
+
+	var tSounds = new Audio();
 
 	// IMAGES STUFF
 	var imagesList = [],
+		audioList = [],
 		linkList = [];
 	var imgW, imgH, IAR;
 
@@ -56,8 +63,13 @@ console.log("script.js loaded");
 
 	function drawImages() {
 
+		// console.log("drawImages()");
+
 		var imgPrev = imagesList[prevImage];
 		var imgNext = imagesList[currentImage];
+
+		// console.log("imgPrev: "+imgPrev);
+		// console.log("imgNext: "+imgNext);
 
 		// This is Next
 		ctx0.globalAlpha = 1;
@@ -91,6 +103,8 @@ console.log("script.js loaded");
 			ctx.globalCompositeOperation = 'source-atop';
 			ctx.drawImage(imgPrev, xPrev, 0, imgW, imgH);
 
+			
+
 
 			ctx.globalCompositeOperation = 'source-over';
 			ctx.globalAlpha = 1;
@@ -116,6 +130,7 @@ console.log("script.js loaded");
 
 		isAnimating = true;
 
+		// TweenMax 
 		TweenMax.to(partMove, 1, {
 			val: 0,
 			ease: Power1.easeInOut,
@@ -142,19 +157,23 @@ console.log("script.js loaded");
 		$('#player').append(myMedia);
 		myMedia.id = "myMedia";
 
+		
+		// playAudio(playlist[currentImage], 0);
 		playAudio('media/linear.mp3', 0);
 		
 		function playAudio(fileName, myVolume) {
-				myMedia.src = fileName;
+			console.log("playAudio: "+playlist[currentImage]);
+			myMedia.src = fileName;
 				myMedia.setAttribute('loop', 'loop');
+				myMedia.setAttribute('muted','muted');
 	    	setVolume(myVolume);
 	    	myMedia.play();
 		}
 		
 		function setVolume(myVolume) {
-	    var myMedia = document.getElementById('myMedia');
-	    myMedia.volume = myVolume;
-	}
+	    	var myMedia = document.getElementById('myMedia');
+	    	myMedia.volume = myVolume;
+		}
 
 	}
 
@@ -173,8 +192,12 @@ console.log("script.js loaded");
 
 			if (trgt.classList.contains('show-next')) {
 				(currentImage + 1 >= imagesList.length) ? currentImage = 0: currentImage++;
+				console.log("currentImage: "+currentImage);
+				console.log("playAudio: "+playlist[currentImage]);
 			} else {
 				(currentImage - 1 < 0) ? currentImage = imagesList.length - 1: currentImage--;
+				console.log("currentImage: "+currentImage);
+				console.log("playAudio: "+playlist[currentImage]);
 			}
 
 			changeImage();
@@ -241,12 +264,6 @@ console.log("script.js loaded");
 		}
 	}
 
-	function slideshowChange () {
-		prevImage = currentImage;
-		(currentImage + 1 >= imagesList.length) ? currentImage = 0: currentImage++;
-		changeImage();
-		selectLink();
-	}
 
 	function addEL() {
 
@@ -258,7 +275,7 @@ console.log("script.js loaded");
 
 		window.addEventListener('resize', debounceResize);
 		btns.addEventListener('click', onBtnsClick);
-		linklist.addEventListener('click', onListClick);
+		// linklist.addEventListener('click', onListClick);
 
 	}
 
@@ -276,6 +293,7 @@ console.log("script.js loaded");
 		});
 	}
 
+
 	function handleImageComplete() {
 		imagesloaded++;
 		if (imagesloaded === imagesList.length) {
@@ -290,15 +308,13 @@ console.log("script.js loaded");
 		calculateScreen();
 		resizeBg();
 		selectLink();
-		changeImage();
-		// audioInit();
-		audioSlider()
-		// slideshowInterval = setInterval(slideshowChange,3000);
+		// changeImage();
+		drawImages();		
 	}
 
 
 	function preInit() {
-		var alist = linklist.querySelectorAll('a');
+		var alist = linklist.querySelectorAll('a'); 
 		var img;
 
 		for (var i = 0; i < alist.length; i++) {
@@ -308,9 +324,10 @@ console.log("script.js loaded");
 			img = new Image();
 			img.src = alist[i].getAttribute('data-imagesrc');
 			imagesList.push(img);
+			// console.log("img: "+img.src);
 
 		}
-
+		audioSlider();
 		preloadImages();
 	}
 
@@ -323,6 +340,7 @@ console.log("script.js loaded");
 	 */
 
 	// http://davidwalsh.name/javascript-debounce-function
+
 	function debounce(func, wait, immediate) {
 		var timeout;
 		return function() {

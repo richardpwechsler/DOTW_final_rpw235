@@ -31,10 +31,21 @@
             <!-- <li><a href="" data-order="4" data-imagesrc="media/linear.jpg"></a></li> -->
         </ul>
     </nav>
-    <!-- <audio src="media/background.mp3" loop></audio> -->
-    <audio src="media/linear.mp3" controls autoplay loop></audio>
-    <audio src="media/tactile.mp3" loop></audio>
-    <audio src="media/clicky.mp3" loop></audio>
+
+ 
+
+    <audio id="audioPlayer" muted="muted" autoplay controls="controls">
+        <source id="audioSource" src=""></source>
+        Your browser does not support the audio format.
+    </audio>
+
+    <!-- <audio src="media/background.mp3" muted class="audio-list" loop></audio>
+    <audio src="media/linear.mp3" muted class="audio-list" loop></audio>
+    <audio src="media/tactile.mp3" muted class="audio-list" loop></audio>
+    <audio src="media/clicky.mp3" muted class="audio-list" loop></audio> -->
+
+
+
 
     <nav class="btns">
         <button class="show-prev"><span><</span></button>
