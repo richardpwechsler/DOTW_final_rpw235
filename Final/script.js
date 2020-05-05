@@ -101,9 +101,6 @@ console.log("Double-click anywhere in the DOM to pause audio.");
 			ctx.globalCompositeOperation = 'source-atop';
 			ctx.drawImage(imgPrev, xPrev, 0, imgW, imgH);
 
-			
-
-
 			ctx.globalCompositeOperation = 'source-over';
 			ctx.globalAlpha = 1;
 
@@ -136,29 +133,40 @@ console.log("Double-click anywhere in the DOM to pause audio.");
 			}
 		});
 		console.log("currentImage: "+currentImage);
+		console.log("imagesList.src: "+imagesList[currentImage].src);
 		if (currentImage == 0) {
-			 // $("#canvas0").hide( "puff", { }, 2000 );
-			 // $("#canvas1").hide( "puff", { }, 2000 );
-			 $("#canvas2").hide( "puff", { }, 2000 );
-			 // $("#canvas3").hide( "puff", { }, 2000 );
-			// $("#canvas2").effect( "shake", {direction: "down", times:1}, 100 );
+			 imagesList[currentImage].src = "media/menu_c.jpg";
+			 $("#canvas1").hide();
+			 $("#canvas2").hide();
+			 $("#canvas3").hide();
+
+ 			//  $("#canvas1").show( "blind", {direction: "right"}, 1000 );
+			 // $("#canvas2").show( "blind", {direction: "left"}, 1000 );
+			 // $("#canvas3").show( "blind", {direction: "vertical"}, 1000 );
+			 
+			 $("#canvas1").fadeIn(1500);
+			 $("#canvas2").fadeIn(1500);
+			 $("#canvas3").fadeIn(1500);
 		}
 		else if (currentImage == 1) {
+			// $("#canvas2").show();
 			console.log("Linear - smooth");
 			// $("#canvas2").effect( "shake", {direction: "down", times:1}, 100 );
 		}
 		else if (currentImage == 2) {
 			console.log("Tactile - pulsate");
+			// $("#canvas0").fadeOut(100).fadeIn(100);
 			$("#canvas1").fadeOut(500).fadeIn(500); 
 			$("#canvas2").fadeOut(500).fadeIn(500); 
 			$("#canvas3").fadeOut(500).fadeIn(500); 
 			// $("#canvas1").effect( "pulsate", {times:2}, 500 );
-			$("#canvas2").effect( "pulsate", {times:2}, 500 );
+			$("#canvas2").effect( "pulsate", {times:2}, 1500 );
 			// $("#canvas3").effect( "pulsate", {times:2}, 500 );
 		}
 		else if (currentImage == 3) {
 			console.log("Clicky - shake");
 			$("#canvas2").effect( "shake", {direction: "down", times:1}, 100 );
+			// $("#canvas3").effect( "shake", {direction: "right", times:1}, 10 );
 		}
 		else {console.log("Error");}
 		// $("#canvas2").effect( "shake", {direction: "down", times:1}, 100 );
