@@ -1,10 +1,9 @@
 console.log("script.js loaded");
+
 console.log("Double-click anywhere in the DOM to pause audio.");
 (function() {
 	'use strict';
-	/* global TweenMax, Power1 */
 
-	//DOM
 	var canvas0 = document.getElementById('canvas0'),
 		ctx0 = canvas0.getContext('2d'),
 		canvas1 = document.getElementById('canvas1'),
@@ -17,19 +16,13 @@ console.log("Double-click anywhere in the DOM to pause audio.");
 		btns = document.querySelector('.btns'),
 		nextBtn = btns.querySelector('.show-next'),
 		loadTxt = document.querySelector('.loading-txt');
-	var slide = 0;
-	var volume1;
-	var myVolume = 0;
-	var volValue = 42.5;
-	var volTest;
 
-	var playlist = new Array('media/background1.mp3', 'media/linear.mp3', 'media/tactile.mp3', 'media/clicky.mp3');
-	
-	// CONST
+
+	var myVolume = 0;
+	var volTest;
+	var flag = 0;
 	var VW, VH, AR;
 	var IS_ACTIVE = 'is-active';
-
-	// VARS
 	var isAnimating = false,
 		currentImage = 0,
 		prevImage = 0,
@@ -41,7 +34,7 @@ console.log("Double-click anywhere in the DOM to pause audio.");
 
 	var tSounds = new Audio();
 
-	// IMAGES STUFF
+	var playlist = new Array('media/background1.mp3', 'media/linear.mp3', 'media/tactile.mp3', 'media/clicky.mp3');
 	var imagesList = [],
 		audioList = [],
 		linkList = [];
@@ -104,7 +97,7 @@ console.log("Double-click anywhere in the DOM to pause audio.");
 			ctx.globalAlpha = 1;
 
 			if (i === 0) {
-				ctx.lineWidth = 1;
+				ctx.lineWidth = 3;
 				ctx.strokeStyle = '#ffffff';
 				ctx.stroke();
 			}
@@ -131,33 +124,39 @@ console.log("Double-click anywhere in the DOM to pause audio.");
 				isAnimating = false;
 			}
 		});
-		console.log("currentImage: "+currentImage);
-		console.log("imagesList.src: "+imagesList[currentImage].src);
+
 		if (currentImage == 0) {
-			 imagesList[currentImage].src = "media/menu_c.jpg";
+			if (flag == 0) {
+			 $("#canvas1").hide();
+			 $("#canvas2").hide();
+			 $("#canvas3").hide();
+			 $("#canvas0").hide();
+			 flag = 1;
+
+			}
+			 $("#canvas0").fadeIn(3000);
+			 $("#canvas1").fadeIn(3000);
+			 $("#canvas2").fadeIn(3000);
+			 $("#canvas3").fadeIn(3000);
+
+			 console.log("\tMenu");
+			 
 		}
 		else if (currentImage == 1) {
-			// $("#canvas2").show();
-			console.log("Linear - smooth");
-			// $("#canvas2").effect( "shake", {direction: "down", times:1}, 100 );
+			console.log("\tLinear");
 		}
 		else if (currentImage == 2) {
-			console.log("Tactile - pulsate");
-			// $("#canvas0").fadeOut(100).fadeIn(100);
+			console.log("\tTactile");
 			$("#canvas1").fadeOut(500).fadeIn(500); 
 			$("#canvas2").fadeOut(500).fadeIn(500); 
 			$("#canvas3").fadeOut(500).fadeIn(500); 
-			// $("#canvas1").effect( "pulsate", {times:2}, 500 );
 			$("#canvas2").effect( "pulsate", {times:2}, 1500 );
-			// $("#canvas3").effect( "pulsate", {times:2}, 500 );
 		}
 		else if (currentImage == 3) {
-			console.log("Clicky - shake");
+			console.log("\tClicky");
 			$("#canvas2").effect( "shake", {direction: "down", times:1}, 100 );
-			// $("#canvas3").effect( "shake", {direction: "right", times:1}, 10 );
 		}
 		else {console.log("Error");}
-		// $("#canvas2").effect( "shake", {direction: "down", times:1}, 100 );
 	}
 
 	function audioSlider(){
@@ -176,40 +175,33 @@ console.log("Double-click anywhere in the DOM to pause audio.");
 		});
 
 		$( "#volume" ).slider( "option", "value", volTest );
-		// console.log("volTest: "+volTest);
 
 		$("#volume").slider({
   			change: function( event, ui ) {
   			myMedia.volume = ($( "#volume" ).slider( "option", "value" ))/100;
   			volTest = myMedia.volume;
-  			// $( "#volume" ).slider( "option", "value", volValue );
-  			// myMedia.volume = myVolume;
   		}
 		});
 
 		
 		var myMedia = document.createElement('audio');
-		// setVolume(volValue);
 		myMedia.pause();
 		$('#player').append(myMedia);
 		myMedia.id = "myMedia";
 
 
 		playAudio(playlist[currentImage], 0);
-		// playAudio('media/linear.mp3', 0);
 		
 		function playAudio(fileName, myVolume) {
 			myMedia.pause();
 			myVolume = myVolume;
 			
-			// myMedia.src = fileName;
 			myMedia.src = playlist[currentImage];
 				myMedia.setAttribute('loop', 'loop');
 				myMedia.setAttribute('muted','muted');
 	    	setVolume(myVolume);
 	    	myMedia.play();
 	    	setVolume(myVolume);
-	    	// myMedia.volume = ($("#volume").slider("option","value"));
 	    	
 		}
 		

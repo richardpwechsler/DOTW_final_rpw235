@@ -3,7 +3,7 @@ h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
+b, u,  center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
@@ -14,7 +14,6 @@ time, mark, audio, video {
   margin: 0;
   padding: 0;
   border: 0;
-  font: inherit;
   font-size: 100%;
   vertical-align: baseline;
 }
@@ -80,9 +79,6 @@ nav.link-list a {
   transition: background-color 0.5s ease;
 }
 nav.link-list a.is-active {
-  /*background-color: #C8A36C;*/
-  /*background-color: #e1329d;*/
-  /*background-color: #2c3040;*/
   background-color: #FFFFFF;
 }
 
@@ -128,7 +124,6 @@ nav.btns button span {
   transition: opacity 0.2s ease;
 }
 nav.btns button:hover {
-  /*background-color: #c75660;*/
   background-color: #7d7d7d;
   width: 64px;
   height: 64px;
@@ -153,21 +148,9 @@ nav.btns button.show-next {
 
 body {
   overflow: hidden;
-  background-color: grey;
+  background-image: url("media/background1.jpg");
+  /*background-image: url("media/menu_bw.jpg");*/
 }
-
-/*footer {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  font-family: sans-serif;
-  color: #ccc;
-  font-size: 12px;
-  line-height: 12px;
-}
-footer a {
-  color: inherit;
-}*/
 
 .loading-txt {
   text-align: center;
@@ -186,9 +169,6 @@ audio {
   display: none;
 }
 
-
-
-
 /*Volume slider*/
 #player {
   width: 350px;
@@ -199,21 +179,9 @@ audio {
   bottom: 20px;
   display: inline-block;
   margin: 0 auto;
-  /*top: 80px;*/
   z-index: 1000;
 }
-#player i {
-  position: absolute;
-  margin-top: -6px;
-  color: #666;
-}
-#player i.fa-volume-down {
-  margin-left: -8px;
-}
-#player i.fa-volume-up {
-  margin-right: -8px;
-  right: 0;
-}
+
 
 #volume {
   position: absolute;
