@@ -17,6 +17,10 @@ console.log("script.js loaded");
 		nextBtn = btns.querySelector('.show-next'),
 		loadTxt = document.querySelector('.loading-txt');
 	var slide = 0;
+	var volume1;
+	var myVolume = 0;
+	var volValue = 42.5;
+	var volTest;
 
 	var playlist = new Array('media/background.mp3', 'media/linear.mp3', 'media/tactile.mp3', 'media/clicky.mp3');
 	
@@ -34,8 +38,6 @@ console.log("script.js loaded");
 			val: 1
 		};
 	var slideshowInterval;
-
-	console.log(currentImage);
 
 	var tSounds = new Audio();
 
@@ -62,14 +64,9 @@ console.log("script.js loaded");
 	}];
 
 	function drawImages() {
-		
-		// console.log("drawImages()");
 
 		var imgPrev = imagesList[prevImage];
 		var imgNext = imagesList[currentImage];
-
-		// console.log("imgPrev: "+imgPrev);
-		// console.log("imgNext: "+imgNext);
 
 		// This is Next
 		ctx0.globalAlpha = 1;
@@ -119,6 +116,8 @@ console.log("script.js loaded");
 			// ctx.restore();
 
 		}
+
+		
 		// audioSlider()
 	}
 
@@ -141,21 +140,62 @@ console.log("script.js loaded");
 				isAnimating = false;
 			}
 		});
+		console.log("currentImage: "+currentImage);
+		if (currentImage == 0) {
+			 // $("#canvas0").hide( "puff", { }, 2000 );
+			 // $("#canvas1").hide( "puff", { }, 2000 );
+			 $("#canvas2").hide( "puff", { }, 2000 );
+			 // $("#canvas3").hide( "puff", { }, 2000 );
+			// $("#canvas2").effect( "shake", {direction: "down", times:1}, 100 );
+		}
+		else if (currentImage == 1) {
+			console.log("Linear - smooth");
+			// $("#canvas2").effect( "shake", {direction: "down", times:1}, 100 );
+		}
+		else if (currentImage == 2) {
+			console.log("Tactile - pulsate");
+			$("#canvas1").effect( "pulsate", {times:1}, 600 );
+			$("#canvas2").effect( "pulsate", {times:1}, 600 );
+			$("#canvas3").effect( "pulsate", {times:1}, 600 );
+		}
+		else if (currentImage == 3) {
+			console.log("Clicky - shake");
+			$("#canvas2").effect( "shake", {direction: "down", times:1}, 100 );
+		}
+		else {console.log("Error");}
+		// $("#canvas2").effect( "shake", {direction: "down", times:1}, 100 );
 	}
 
 	function audioSlider(){
-		// myMedia.pause();
+		
+		stopAllAudio();
+
 		$("#volume").slider({
 		  	min: 0,
 		  	max: 100,
 		  	value: 0,
-				range: "min",
+			range: "min",
 		  	slide: function(event, ui) {
 		    	setVolume(ui.value / 100);
+		    	volTest = (ui.value/100);
 		  	}
 		});
-			
+
+		$( "#volume" ).slider( "option", "value", volTest );
+		// console.log("volTest: "+volTest);
+
+		$("#volume").slider({
+  			change: function( event, ui ) {
+  			myMedia.volume = ($( "#volume" ).slider( "option", "value" ))/100;
+  			volTest = myMedia.volume;
+  			// $( "#volume" ).slider( "option", "value", volValue );
+  			// myMedia.volume = myVolume;
+  		}
+		});
+
+		
 		var myMedia = document.createElement('audio');
+		// setVolume(volValue);
 		myMedia.pause();
 		$('#player').append(myMedia);
 		myMedia.id = "myMedia";
@@ -166,21 +206,28 @@ console.log("script.js loaded");
 		
 		function playAudio(fileName, myVolume) {
 			myMedia.pause();
-			console.log("playAudio: "+playlist[currentImage]);
+			myVolume = myVolume;
+			
 			// myMedia.src = fileName;
 			myMedia.src = playlist[currentImage];
 				myMedia.setAttribute('loop', 'loop');
 				myMedia.setAttribute('muted','muted');
 	    	setVolume(myVolume);
 	    	myMedia.play();
+	    	setVolume(myVolume);
+	    	// myMedia.volume = ($("#volume").slider("option","value"));
+	    	
 		}
 		
-		function setVolume(myVolume) {
+		function setVolume(myVol) {
 	    	var myMedia = document.getElementById('myMedia');
-	    	myMedia.volume = myVolume;
+	    	myMedia.volume = myVol;
+	    	$( "#volume" ).slider( "option", "value", myVol );
 		}
 
 	}
+
+
 
 	function onBtnsClick(e) {
 
@@ -197,12 +244,8 @@ console.log("script.js loaded");
 
 			if (trgt.classList.contains('show-next')) {
 				(currentImage + 1 >= imagesList.length) ? currentImage = 0: currentImage++;
-				console.log("currentImage: "+currentImage);
-				console.log("playAudio: "+playlist[currentImage]);
 			} else {
 				(currentImage - 1 < 0) ? currentImage = imagesList.length - 1: currentImage--;
-				console.log("currentImage: "+currentImage);
-				console.log("playAudio: "+playlist[currentImage]);
 			}
 
 			changeImage();
@@ -210,7 +253,7 @@ console.log("script.js loaded");
 
 			clearInterval(slideshowInterval);
 		}
-		audioSlider()
+		audioSlider();
 	}
 
 	function onListClick(e) {
@@ -234,7 +277,7 @@ console.log("script.js loaded");
 
 			clearInterval(slideshowInterval);
 		}
-		audioSlider()
+		audioSlider();
 	}
 
 	function selectLink() {
@@ -332,7 +375,6 @@ console.log("script.js loaded");
 			img = new Image();
 			img.src = alist[i].getAttribute('data-imagesrc');
 			imagesList.push(img);
-			// console.log("img: "+img.src);
 
 		}
 		
@@ -349,6 +391,21 @@ console.log("script.js loaded");
 	 */
 
 	// http://davidwalsh.name/javascript-debounce-function
+
+	
+
+	function stopAllAudio(){
+		var allAudios = document.querySelectorAll('audio');
+		allAudios.forEach(function(audio){
+			audio.pause();
+			audio.volume = myVolume;
+		});
+	}
+
+	$(document).on("dblclick", function () {
+	    stopAllAudio();
+	});
+	
 
 	function debounce(func, wait, immediate) {
 		var timeout;
@@ -368,9 +425,10 @@ console.log("script.js loaded");
 })();
 
 // Click anywhere within DOM triggers "thock" sound
-$(document).on("mouseup", function () {
-    
-    var audio = new Audio("media/thock2.mp3");
-    audio.volume = 0.2;
-    audio.play();
-});
+	$(document).on("mouseup", function () {
+	    
+	    var audio = new Audio("media/thock2.mp3");
+	    audio.volume = 0.2;
+	    audio.play();
+	});
+	

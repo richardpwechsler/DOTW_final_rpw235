@@ -151,6 +151,10 @@ nav.btns button.show-next {
   right: 15%;
 }
 
+body {
+  overflow: hidden;
+}
+
 /*footer {
   position: absolute;
   bottom: 10px;
@@ -238,4 +242,5 @@ audio {
   margin-top: -8px;
   cursor: pointer;
   outline: none;
+  z-index: 1001;
 }
