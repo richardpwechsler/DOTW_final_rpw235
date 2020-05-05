@@ -153,6 +153,7 @@ nav.btns button.show-next {
 
 body {
   overflow: hidden;
+  background-color: grey;
 }
 
 /*footer {

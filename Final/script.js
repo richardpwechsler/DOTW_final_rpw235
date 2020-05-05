@@ -1,4 +1,5 @@
 console.log("script.js loaded");
+console.log("Double-click anywhere in the DOM to pause audio.");
 (function() {
 	'use strict';
 	/* global TweenMax, Power1 */
@@ -22,7 +23,7 @@ console.log("script.js loaded");
 	var volValue = 42.5;
 	var volTest;
 
-	var playlist = new Array('media/background.mp3', 'media/linear.mp3', 'media/tactile.mp3', 'media/clicky.mp3');
+	var playlist = new Array('media/background1.mp3', 'media/linear.mp3', 'media/tactile.mp3', 'media/clicky.mp3');
 	
 	// CONST
 	var VW, VH, AR;
@@ -107,18 +108,12 @@ console.log("script.js loaded");
 			ctx.globalAlpha = 1;
 
 			if (i === 0) {
-// 				if (i !== partList.length-1) {
 				ctx.lineWidth = 1;
 				ctx.strokeStyle = '#ffffff';
 				ctx.stroke();
 			}
-
-			// ctx.restore();
-
 		}
 
-		
-		// audioSlider()
 	}
 
 	function changeImage() {
@@ -154,9 +149,12 @@ console.log("script.js loaded");
 		}
 		else if (currentImage == 2) {
 			console.log("Tactile - pulsate");
-			$("#canvas1").effect( "pulsate", {times:1}, 600 );
-			$("#canvas2").effect( "pulsate", {times:1}, 600 );
-			$("#canvas3").effect( "pulsate", {times:1}, 600 );
+			$("#canvas1").fadeOut(500).fadeIn(500); 
+			$("#canvas2").fadeOut(500).fadeIn(500); 
+			$("#canvas3").fadeOut(500).fadeIn(500); 
+			// $("#canvas1").effect( "pulsate", {times:2}, 500 );
+			$("#canvas2").effect( "pulsate", {times:2}, 500 );
+			// $("#canvas3").effect( "pulsate", {times:2}, 500 );
 		}
 		else if (currentImage == 3) {
 			console.log("Clicky - shake");
@@ -358,11 +356,10 @@ console.log("script.js loaded");
 		calculateScreen();
 		resizeBg();
 		selectLink();
-		// changeImage();
+		changeImage();
 		drawImages();
 		audioSlider();		
 	}
-
 
 	function preInit() {
 		var alist = linklist.querySelectorAll('a'); 
@@ -375,24 +372,12 @@ console.log("script.js loaded");
 			img = new Image();
 			img.src = alist[i].getAttribute('data-imagesrc');
 			imagesList.push(img);
-
 		}
 		
 		preloadImages();
 
 	}
-
 	preInit();
-
-
-
-	/**
-	 * Helpers
-	 */
-
-	// http://davidwalsh.name/javascript-debounce-function
-
-	
 
 	function stopAllAudio(){
 		var allAudios = document.querySelectorAll('audio');
@@ -428,7 +413,7 @@ console.log("script.js loaded");
 	$(document).on("mouseup", function () {
 	    
 	    var audio = new Audio("media/thock2.mp3");
-	    audio.volume = 0.2;
+	    audio.volume = 0.15;
 	    audio.play();
 	});
 	
