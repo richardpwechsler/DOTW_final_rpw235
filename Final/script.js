@@ -38,7 +38,6 @@ console.log("Double-click anywhere in the DOM to pause audio.");
 		partMove = {
 			val: 1
 		};
-	var slideshowInterval;
 
 	var tSounds = new Audio();
 
@@ -136,17 +135,6 @@ console.log("Double-click anywhere in the DOM to pause audio.");
 		console.log("imagesList.src: "+imagesList[currentImage].src);
 		if (currentImage == 0) {
 			 imagesList[currentImage].src = "media/menu_c.jpg";
-			 $("#canvas1").hide();
-			 $("#canvas2").hide();
-			 $("#canvas3").hide();
-
- 			//  $("#canvas1").show( "blind", {direction: "right"}, 1000 );
-			 // $("#canvas2").show( "blind", {direction: "left"}, 1000 );
-			 // $("#canvas3").show( "blind", {direction: "vertical"}, 1000 );
-			 
-			 $("#canvas1").fadeIn(1500);
-			 $("#canvas2").fadeIn(1500);
-			 $("#canvas3").fadeIn(1500);
 		}
 		else if (currentImage == 1) {
 			// $("#canvas2").show();
@@ -233,8 +221,6 @@ console.log("Double-click anywhere in the DOM to pause audio.");
 
 	}
 
-
-
 	function onBtnsClick(e) {
 
 		e.preventDefault();
@@ -257,7 +243,6 @@ console.log("Double-click anywhere in the DOM to pause audio.");
 			changeImage();
 			selectLink();
 
-			clearInterval(slideshowInterval);
 		}
 		audioSlider();
 	}
@@ -281,7 +266,6 @@ console.log("Double-click anywhere in the DOM to pause audio.");
 
 			selectLink();
 
-			clearInterval(slideshowInterval);
 		}
 		audioSlider();
 	}
@@ -331,7 +315,6 @@ console.log("Double-click anywhere in the DOM to pause audio.");
 
 		window.addEventListener('resize', debounceResize);
 		btns.addEventListener('click', onBtnsClick);
-		// linklist.addEventListener('click', onListClick);
 
 	}
 
@@ -360,7 +343,6 @@ console.log("Double-click anywhere in the DOM to pause audio.");
 	}
 
 	function init() {
-
 		calculateScreen();
 		resizeBg();
 		selectLink();
@@ -372,11 +354,8 @@ console.log("Double-click anywhere in the DOM to pause audio.");
 	function preInit() {
 		var alist = linklist.querySelectorAll('a'); 
 		var img;
-
 		for (var i = 0; i < alist.length; i++) {
-
 			linkList.push(alist[i]);
-
 			img = new Image();
 			img.src = alist[i].getAttribute('data-imagesrc');
 			imagesList.push(img);
